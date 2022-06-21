@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, we are making a new app")
+    return render(request, 'polls/base.html')
