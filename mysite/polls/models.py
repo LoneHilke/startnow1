@@ -15,7 +15,7 @@ class Tegning(models.Model):
     kræver  = models.Textdivereld(blank=True)
     giver = models.Textdivereld(blank=True)
     Bruges = models.Textdivereld(blank=True)
-    image = models.Imagedivereld(upload_to='menu_images/')
+    image = models.ImageField(upload_to='menu_images/')
 
     def __str__(self):
         return self.titel
