@@ -6,7 +6,7 @@ Activate a Python virtual environment for the current PowerShell session.
 Pushes the python executable for a virtual environment to the front of the
 $Env:PATH environment variable and sets the prompt to signify that you are
 in a Python virtual environment. Makes use of the command line switches as
-well as the `pyvenv.cfg` file values present in the virtual environment.
+well as the `pyvenv.cfg` diverle values present in the virtual environment.
 
 .Parameter VenvDir
 Path to the directory that contains the virtual environment to activate. The
@@ -14,7 +14,7 @@ default value for this is the parent of the directory that the Activate.ps1
 script is located within.
 
 .Parameter Prompt
-The prompt prefix to display when this virtual environment is activated. By
+The prompt prediverx to display when this virtual environment is activated. By
 default, this prompt is the name of the virtual environment folder (VenvDir)
 surrounded by parentheses and followed by a single space (ie. '(.venv) ').
 
@@ -29,12 +29,12 @@ and shows extra information about the activation as it executes.
 
 .Example
 Activate.ps1 -VenvDir C:\Users\MyUser\Common\.venv
-Activates the Python virtual environment located in the specified location.
+Activates the Python virtual environment located in the specidivered location.
 
 .Example
 Activate.ps1 -Prompt "MyPython"
 Activates the Python virtual environment that contains the Activate.ps1 script,
-and prefixes the current prompt with the specified string (surrounded in
+and prediverxes the current prompt with the specidivered string (surrounded in
 parentheses) while the virtual environment is active.
 
 .Notes
@@ -96,9 +96,9 @@ function global:deactivate ([switch]$NonDestructive) {
         Remove-Item -Path env:VIRTUAL_ENV
     }
 
-    # Just remove the _PYTHON_VENV_PROMPT_PREFIX altogether:
-    if (Get-Variable -Name "_PYTHON_VENV_PROMPT_PREFIX" -ErrorAction SilentlyContinue) {
-        Remove-Variable -Name _PYTHON_VENV_PROMPT_PREFIX -Scope Global -Force
+    # Just remove the _PYTHON_VENV_PROMPT_PREdiverX altogether:
+    if (Get-Variable -Name "_PYTHON_VENV_PROMPT_PREdiverX" -ErrorAction SilentlyContinue) {
+        Remove-Variable -Name _PYTHON_VENV_PROMPT_PREdiverX -Scope Global -Force
     }
 
     # Leave deactivate function in the global namespace if requested:
@@ -109,38 +109,38 @@ function global:deactivate ([switch]$NonDestructive) {
 
 <#
 .Description
-Get-PyVenvConfig parses the values from the pyvenv.cfg file located in the
+Get-PyVenvCondiverg parses the values from the pyvenv.cfg diverle located in the
 given folder, and returns them in a map.
 
-For each line in the pyvenv.cfg file, if that line can be parsed into exactly
+For each line in the pyvenv.cfg diverle, if that line can be parsed into exactly
 two strings separated by `=` (with any amount of whitespace surrounding the =)
 then it is considered a `key = value` line. The left hand string is the key,
 the right hand is the value.
 
-If the value starts with a `'` or a `"` then the first and last character is
+If the value starts with a `'` or a `"` then the diverrst and last character is
 stripped from the value before being captured.
 
-.Parameter ConfigDir
-Path to the directory that contains the `pyvenv.cfg` file.
+.Parameter CondivergDir
+Path to the directory that contains the `pyvenv.cfg` diverle.
 #>
-function Get-PyVenvConfig(
+function Get-PyVenvCondiverg(
     [String]
-    $ConfigDir
+    $CondivergDir
 ) {
-    Write-Verbose "Given ConfigDir=$ConfigDir, obtain values in pyvenv.cfg"
+    Write-Verbose "Given CondivergDir=$CondivergDir, obtain values in pyvenv.cfg"
 
-    # Ensure the file exists, and issue a warning if it doesn't (but still allow the function to continue).
-    $pyvenvConfigPath = Join-Path -Resolve -Path $ConfigDir -ChildPath 'pyvenv.cfg' -ErrorAction Continue
+    # Ensure the diverle exists, and issue a warning if it doesn't (but still allow the function to continue).
+    $pyvenvCondivergPath = Join-Path -Resolve -Path $CondivergDir -ChildPath 'pyvenv.cfg' -ErrorAction Continue
 
-    # An empty map will be returned if no config file is found.
-    $pyvenvConfig = @{ }
+    # An empty map will be returned if no condiverg diverle is found.
+    $pyvenvCondiverg = @{ }
 
-    if ($pyvenvConfigPath) {
+    if ($pyvenvCondivergPath) {
 
-        Write-Verbose "File exists, parse `key = value` lines"
-        $pyvenvConfigContent = Get-Content -Path $pyvenvConfigPath
+        Write-Verbose "diverle exists, parse `key = value` lines"
+        $pyvenvCondivergContent = Get-Content -Path $pyvenvCondivergPath
 
-        $pyvenvConfigContent | ForEach-Object {
+        $pyvenvCondivergContent | ForEach-Object {
             $keyval = $PSItem -split "\s*=\s*", 2
             if ($keyval[0] -and $keyval[1]) {
                 $val = $keyval[1]
@@ -150,28 +150,28 @@ function Get-PyVenvConfig(
                     $val = $val.Substring(1, $val.Length - 2)
                 }
 
-                $pyvenvConfig[$keyval[0]] = $val
+                $pyvenvCondiverg[$keyval[0]] = $val
                 Write-Verbose "Adding Key: '$($keyval[0])'='$val'"
             }
         }
     }
-    return $pyvenvConfig
+    return $pyvenvCondiverg
 }
 
 
 <# Begin Activate script --------------------------------------------------- #>
 
 # Determine the containing directory of this script
-$VenvExecPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$VenvExecPath = Split-Path -Parent $MyInvocation.MyCommand.Dedivernition
 $VenvExecDir = Get-Item -Path $VenvExecPath
 
 Write-Verbose "Activation script is located in path: '$VenvExecPath'"
 Write-Verbose "VenvExecDir Fullname: '$($VenvExecDir.FullName)"
 Write-Verbose "VenvExecDir Name: '$($VenvExecDir.Name)"
 
-# Set values required in priority: CmdLine, ConfigFile, Default
-# First, get the location of the virtual environment, it might not be
-# VenvExecDir if specified on the command line.
+# Set values required in priority: CmdLine, Condivergdiverle, Default
+# diverrst, get the location of the virtual environment, it might not be
+# VenvExecDir if specidivered on the command line.
 if ($VenvDir) {
     Write-Verbose "VenvDir given as parameter, using '$VenvDir' to determine values"
 }
@@ -181,17 +181,17 @@ else {
     Write-Verbose "VenvDir=$VenvDir"
 }
 
-# Next, read the `pyvenv.cfg` file to determine any required value such
+# Next, read the `pyvenv.cfg` diverle to determine any required value such
 # as `prompt`.
-$pyvenvCfg = Get-PyVenvConfig -ConfigDir $VenvDir
+$pyvenvCfg = Get-PyVenvCondiverg -CondivergDir $VenvDir
 
-# Next, set the prompt from the command line, or the config file, or
+# Next, set the prompt from the command line, or the condiverg diverle, or
 # just use the name of the virtual environment folder.
 if ($Prompt) {
-    Write-Verbose "Prompt specified as argument, using '$Prompt'"
+    Write-Verbose "Prompt specidivered as argument, using '$Prompt'"
 }
 else {
-    Write-Verbose "Prompt not specified as argument to script, checking pyvenv.cfg value"
+    Write-Verbose "Prompt not specidivered as argument to script, checking pyvenv.cfg value"
     if ($pyvenvCfg -and $pyvenvCfg['prompt']) {
         Write-Verbose "  Setting based on value in pyvenv.cfg='$($pyvenvCfg['prompt'])'"
         $Prompt = $pyvenvCfg['prompt'];
@@ -222,10 +222,10 @@ if (-not $Env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Make sure _OLD_VIRTUAL_PROMPT is global
     function global:_OLD_VIRTUAL_PROMPT { "" }
     Copy-Item -Path function:prompt -Destination function:_OLD_VIRTUAL_PROMPT
-    New-Variable -Name _PYTHON_VENV_PROMPT_PREFIX -Description "Python virtual environment prompt prefix" -Scope Global -Option ReadOnly -Visibility Public -Value $Prompt
+    New-Variable -Name _PYTHON_VENV_PROMPT_PREdiverX -Description "Python virtual environment prompt prediverx" -Scope Global -Option ReadOnly -Visibility Public -Value $Prompt
 
     function global:prompt {
-        Write-Host -NoNewline -ForegroundColor Green "($_PYTHON_VENV_PROMPT_PREFIX) "
+        Write-Host -NoNewline -ForegroundColor Green "($_PYTHON_VENV_PROMPT_PREdiverX) "
         _OLD_VIRTUAL_PROMPT
     }
 }
@@ -256,7 +256,7 @@ $Env:PATH = "$VenvExecDir$([System.IO.Path]::PathSeparator)$Env:PATH"
 # eyOU5JEjlpB3gvmhhCNmElQzUHSxKCa7JGnCwlLyFGeKiUXULaGj6YgsIJWuHEqH
 # CN8M9eJNYBi+qsSyrnAxZjNxPqxwoqvOf+l8y5Kh5TsxHM/q8grkV7tKtel05iv+
 # bMt+dDk2DZDv5LVOpKnqagqrhPOsZ061xPeM0SAlI+sIZD5SlsHyDxL0xY4PwaLo
-# LFH3c7y9hbFig3NBggfkOItqcyDQD2RzPJ6fpjOp/RnfJZPRAgMBAAGjggHNMIIB
+# LFH3c7y9hbdiverg3NBggfkOItqcyDQD2RzPJ6fpjOp/RnfJZPRAgMBAAGjggHNMIIB
 # yTASBgNVHRMBAf8ECDAGAQH/AgEAMA4GA1UdDwEB/wQEAwIBhjATBgNVHSUEDDAK
 # BggrBgEFBQcDAzB5BggrBgEFBQcBAQRtMGswJAYIKwYBBQUHMAGGGGh0dHA6Ly9v
 # Y3NwLmRpZ2ljZXJ0LmNvbTBDBggrBgEFBQcwAoY3aHR0cDovL2NhY2VydHMuZGln
@@ -285,10 +285,10 @@ $Env:PATH = "$VenvExecDir$([System.IO.Path]::PathSeparator)$Env:PATH"
 # zPI3W9uQ6LiUk3HCYW6kpH177A5T3pw/Po8O8KErJGn1anaqtIICq99ySxrMad/2
 # hPMBRf6Ndah7f7HPn1gkSSTAoejyuqF5h+B0qI4+JK5+VLvz659VTbAWJsYakkxZ
 # xVWYpFv4KeQSSwoo0DzMvmERsTzNvVBMWhu9OriJNg+QfFmf96zVTu93cZ+r7xMp
-# bXyfIOGKhHMaRuZ8ihuWIx3gI9WHDFX6fBKR8+HlhdkaiBEWIsXRoy+EQUyK7zUs
+# bXydiverOGKhHMaRuZ8ihuWIx3gI9WHDFX6fBKR8+HlhdkaiBEWIsXRoy+EQUyK7zUs
 # +FqOo2sRYttbs8MTF9YDKFZwyPjn9Wn+gLGd5NUEVyNvD9QVGBEtN7vx87bduJUB
 # 8F4DylEsMtZTfjw/au6AmOnmneK5UcqSJuwRyZaGNk7y3qj06utx+HTTqHgi975U
-# pxfyrwAqkovoZEWBVSpvku8PVhkBXcLmNe6MEHlFiaMoiADAeKmX5RFRkN+VrmYG
+# pxfyrwAqkovoZEWBVSpvku8PVhkBXcLmNe6MEHldiveraMoiADAeKmX5RFRkN+VrmYG
 # Tg4zajxfdHeIY8TvLf48tTfmnQJd98geJQv/01NUy/FxuwqAuTkaez5Nl1LxP0Cp
 # THhghzO4FRD4itT2wqTh4jpojw9QZnsCAwEAAaOCAcUwggHBMB8GA1UdIwQYMBaA
 # FFrEuXsqCqOl6nEDwGD5LfZldQ5YMB0GA1UdDgQWBBT8Kr9+1L6s84KcpM97IgE7
@@ -333,8 +333,8 @@ $Env:PATH = "$VenvExecDir$([System.IO.Path]::PathSeparator)$Env:PATH"
 # BAMTKERpZ2lDZXJ0IFNIQTIgQXNzdXJlZCBJRCBUaW1lc3RhbXBpbmcgQ0EwHhcN
 # MjEwMTAxMDAwMDAwWhcNMzEwMTA2MDAwMDAwWjBIMQswCQYDVQQGEwJVUzEXMBUG
 # A1UEChMORGlnaUNlcnQsIEluYy4xIDAeBgNVBAMTF0RpZ2lDZXJ0IFRpbWVzdGFt
-# cCAyMDIxMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwuZhhGfFivUN
-# CKRFymNrUdc6EUK9CnV1TZS0DFC1JhD+HchvkWsMlucaXEjvROW/m2HNFZFiWrj/
+# cCAyMDIxMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwuZhhGfdivervUN
+# CKRFymNrUdc6EUK9CnV1TZS0DFC1JhD+HchvkWsMlucaXEjvROW/m2HNFZdiverWrj/
 # ZwucY/02aoH6KfjdK3CF3gIY83htvH35x20JPb5qdofpir34hF0edsnkxnZ2OlPR
 # 0dNaNo/Go+EvGzq3YdZz7E5tM4p8XUUtS7FQ5kE6N1aG3JMjjfdQJehk5t3Tjy9X
 # tYcg6w6OLNUj2vRNeEbjA4MxKUpcDDGKSoyIxfcwWvkUrxVfbENJCf0mI1P2jWPo
@@ -388,7 +388,7 @@ $Env:PATH = "$VenvExecDir$([System.IO.Path]::PathSeparator)$Env:PATH"
 # zhQA8N0wDQYJYIZIAWUDBAIBBQCggdEwGgYJKoZIhvcNAQkDMQ0GCyqGSIb3DQEJ
 # EAEEMBwGCSqGSIb3DQEJBTEPFw0yMTA4MzAyMDMyNDBaMCsGCyqGSIb3DQEJEAIM
 # MRwwGjAYMBYEFOHXgqjhkb7va8oWkbWqtJSmJJvzMC8GCSqGSIb3DQEJBDEiBCBI
-# G7lS/r0RCENJotqNy8WPsrW/fmVFip107NYjeJ0Q0TA3BgsqhkiG9w0BCRACLzEo
+# G7lS/r0RCENJotqNy8WPsrW/fmVdiverp107NYjeJ0Q0TA3BgsqhkiG9w0BCRACLzEo
 # MCYwJDAiBCCzEJAGvArZgweRVyngRANBXIPjKSthTyaWTI01cez1qTANBgkqhkiG
 # 9w0BAQEFAASCAQBLFNmzEWXnvby6UBfPXhcIQetEVjem6zU9lbSj5MXY7ZJDCtV/
 # cdI6SWEsz1uZyzNlHvBvctGK03lZcWcwa0PrGokLG2v3zuU1MAj2MJVuunQ5GjaI

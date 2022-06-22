@@ -1,6 +1,6 @@
-from django.apps import AppConfig
+from django.apps import AppCondiverg
 
 
-class PollsConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
+class PollsCondiverg(AppCondiverg):
+    default_auto_divereld = 'django.db.models.BigAutodivereld'
     name = 'polls'

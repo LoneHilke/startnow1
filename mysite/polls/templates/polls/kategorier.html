@@ -1,0 +1,108 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+<div class="container mb-5">
+    <div class="row justify-content-center mt-1">
+        <div class="col-md-12 col-sm-12 p-4">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="pt-5">
+                    {% for tegn in tegninger %}
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ tegn.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ tegn.pk }}">
+                                    <label class="form-check-label">{{ tegn.titel }}</label>
+                                </div>
+                                
+                            </div>
+                            <h5>Beskrivelse:</h5>
+                            <p>{{ tegn.beskrivelse }}</p>
+                            <h5>Kræver:</h5>
+                            <p>{{ tegn.kræver}}</p>
+                            <h5>Giver:</h5>
+                            <p>{{ tegn.giver}}</p>
+                            <h5>Bruges til:</h5>
+                            <p>{{ tegn.bruges}}</p>
+                            <h5>Link:</h5>
+                            <p>{{ tegn.link}}</p>
+                            <a class="ml-3" href="{{ tegn.link }}">Link </a>
+                            
+                        </div>
+                    </div>
+                    <hr />
+                {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for klip in klippe %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ klip.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ klip.pk }}">
+                                    <label class="form-check-label">{{ klip.titel }}</label>
+                                </div>
+                                
+                            </div>
+                            <h5>Beskrivelse:</h5>
+                            <p>{{ klip.beskrivelse }}</p>
+                            <h5>Kræver:</h5>
+                            <p>{{ klip.kræver}}</p>
+                            <h5>Giver:</h5>
+                            <p>{{ klip.giver}}</p>
+                            <h5>Bruges til:</h5>
+                            <p>{{ klip.bruges}}</p>
+                            <h5>Link:</h5>
+                            <a class="ml-3" href="{{ klip.link }}">Link</a>
+                            
+                       </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for diver in diverse %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ diver.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ diver.pk }}">
+                                    <label class="form-check-label">{{ diver.titel }}</label>
+                                </div>
+                                
+                            </div>
+                            <h5>Beskrivelse:</h5>
+                            <p>{{ diver.beskrivelse }}</p>
+                            <h5>Kræver:</h5>
+                            <p>{{ diver.kræver}}</p>
+                            <h5>Giver:</h5>
+                            <p>{{ diver.giver}}</p>
+                            <h5>Bruges til:</h5>
+                            <p>{{ diver.bruges}}</p>
+                            <h5>Link:</h5>
+                            <a class="ml-3" href="{{ diver.link }}">Link</a>
+                           
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+                

@@ -1,0 +1,20 @@
+{% extends 'polls/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mb-5"></div>
+    <div class="background"image src="media\menu_images\abstract-3168416_640.jpg" >
+        <div class="row justify-content-center mt-5">
+            <div class="col--md-8 col-sm-12 offset-md-1 p-4 text-center">
+                <h1>Ideer til print og andet</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-1">
+            <div class="card col-md-5 col-sm-12 offset-md-1 p-4 text-center">
+                <h2>se mere</h2>
+                <a href="{% url 'kategorier' %}"  class="btn btn-outline-success">Menu</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

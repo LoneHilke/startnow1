@@ -13,23 +13,23 @@ class Migration(migrations.Migration):
     operations = [
         migrations.CreateModel(
             name='Kategori',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('titel', models.CharField(max_length=50)),
+            diverelds=[
+                ('id', models.BigAutodivereld(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('titel', models.Chardivereld(max_length=50)),
             ],
         ),
         migrations.CreateModel(
             name='Tegning',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('titel', models.CharField(max_length=50)),
-                ('beskrivelse', models.TextField()),
-                ('link', models.URLField()),
-                ('kræver', models.TextField(blank=True)),
-                ('giver', models.TextField(blank=True)),
-                ('Bruges', models.TextField(blank=True)),
-                ('image', models.ImageField(upload_to='menu_images/')),
-                ('kategori', models.ManyToManyField(related_name='item', to='polls.kategori')),
+            diverelds=[
+                ('id', models.BigAutodivereld(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('titel', models.Chardivereld(max_length=50)),
+                ('beskrivelse', models.Textdivereld()),
+                ('link', models.URLdivereld()),
+                ('kræver', models.Textdivereld(blank=True)),
+                ('giver', models.Textdivereld(blank=True)),
+                ('Bruges', models.Textdivereld(blank=True)),
+                ('image', models.Imagedivereld(upload_to='menu_images/')),
+                ('kategori', models.ManyToManydivereld(related_name='item', to='polls.kategori')),
             ],
         ),
     ]
